@@ -2622,6 +2622,10 @@ class YoutubeDL(object):
         return encoding
 
     def _write_info_json(self, label, info_dict, infofn, overwrite=None):
+        # Writes download date in UTC and local time to the JSON file
+        info_dict['download_date_utc'] = datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+        info_dict['download_date_local'] = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+
         if not self.params.get('writeinfojson', False):
             return False
 
